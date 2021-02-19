@@ -1,4 +1,6 @@
 ﻿using Buisness.Abstract;
+using Buisness.Constants;
+using Core.Untilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -16,18 +18,22 @@ namespace Buisness.Concrete
             _carDal = carDal;
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            if (DateTime.Now.Hour == 22) 
+            {
+                return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarsListed);
+            }
+            return new ErrorDataResult<List<Car>>(_carDal.GetAll(), "sa");
         }
         public void Add(Car car)
         {
             _carDal.Add(car);
         }
 
-        public List<Car> GetAllByBrandId(int id)
+        public IDataResult<List<Car>> GetAllByBrandId(int id)
         {
-            return _carDal.GetAll(b => b.BrandId == id);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(b => b.BrandId == id), "Listelendi");
         }
     }
 }
