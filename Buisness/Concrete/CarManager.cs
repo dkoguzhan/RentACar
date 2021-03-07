@@ -49,7 +49,7 @@ namespace Buisness.Concrete
             return new SuccessResult(Messages.CarAdded);
         }
 
-
+        
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
