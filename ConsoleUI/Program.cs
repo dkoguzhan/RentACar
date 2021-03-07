@@ -20,10 +20,10 @@ namespace ConsoleUI
 
 
 
-            foreach (var car in carManager.GetAll())
-            {
-                Console.WriteLine(car.Description);
-            }
+            //foreach (var car in carManager.GetAll())
+            //{
+            //    Console.WriteLine(car.Description);
+            //}
 
         }
     }

@@ -18,9 +18,9 @@ namespace DataAccess.Concrete.InMemory
         {
             _cars = new List<Car>
             {
-                new Car{Id=1,BrandId=2,ColorId=1,Description="eski araba",ModelYear=2000},
-                new Car{Id=2,BrandId=3,ColorId=1,Description="eski araba",ModelYear=2000},
-                new Car{Id=3,BrandId=2,ColorId=1,Description="eski araba",ModelYear=2000}
+                new Car{CarId=1,BrandId=2,ColorId=1,Description="eski araba",ModelYear=2000},
+                new Car{CarId=2,BrandId=3,ColorId=1,Description="eski araba",ModelYear=2000},
+                new Car{CarId=3,BrandId=2,ColorId=1,Description="eski araba",ModelYear=2000}
             };
         }
         public void Add(Car car)
@@ -30,7 +30,7 @@ namespace DataAccess.Concrete.InMemory
 
         public void Delete(Car car)
         {
-            var carToDelete = _cars.SingleOrDefault(c => c.Id == car.Id);
+            var carToDelete = _cars.SingleOrDefault(c => c.CarId == car.CarId);
             _cars.Remove(carToDelete);
         }
 
