@@ -28,6 +28,11 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
             return _memoryCache.Get<T>(key);
         }
 
+        public object Get(string key)
+        {
+            return _memoryCache.Get(key);
+        }
+
         public bool IsAdd(string key)
         {
             return _memoryCache.TryGetValue(key,out _);
