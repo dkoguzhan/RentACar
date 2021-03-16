@@ -11,67 +11,30 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarImagesController : ControllerBase
+    public class RentalsController : ControllerBase
     {
-        private ICarImageService _carImageService;
+        IRentalService _rentalService;
 
-        public CarImagesController(ICarImageService carImageService)
+        public RentalsController(IRentalService rentalService)
         {
-            _carImageService = carImageService;
+            _rentalService = rentalService;
         }
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _carImageService.GetAll();
+            var result = _rentalService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
             }
-
-            return BadRequest(result);
-        }
-
-        [HttpGet("car/{carId}")]
-        public IActionResult GetAllByCarId(int carId)
-        {
-            var result = _carImageService.GetAllByCarId(carId);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result);
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
-        {
-            var result = _carImageService.GetById(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
             return BadRequest(result);
         }
 
         [HttpPost("add")]
-        public IActionResult Add([FromForm] IFormFile image, [FromForm] CarImage carImage)
+        public IActionResult Add(Rental rental)
         {
-
-            var result = _carImageService.Add(image, carImage);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-        [HttpPost("delete")]
-        public IActionResult Delete(CarImage carImage)
-        {
-            var result = _carImageService.Delete(carImage);
+            var result = _rentalService.Add(rental);
             if (result.Success)
             {
                 return Ok(result);
@@ -80,9 +43,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update([FromForm] IFormFile image, [FromForm] CarImage carImage)
+        public IActionResult Update(Rental rental)
         {
-            var result = _carImageService.Update(image, carImage);
+            var result = _rentalService.Update(rental);
             if (result.Success)
             {
                 return Ok(result);
@@ -90,6 +53,26 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getrentalsdetails")]
+        public IActionResult GetRentalsDetails()
+        {
+            var result = _rentalService.GetRentalsDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
 
+        [HttpPost("delete")]
+        public IActionResult Delete(Rental rental)
+        {
+            var result = _rentalService.Delete(rental);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }

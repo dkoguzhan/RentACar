@@ -3,6 +3,7 @@ using Buisness.Constants;
 using Core.Untilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -30,6 +31,16 @@ namespace Buisness.Concrete
         public IResult Delete(Rental rental)
         {
             throw new NotImplementedException();
+        }
+
+        public IDataResult<List<Rental>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDataResult<List<RentalDto>> GetRentalsDetails()
+        {
+            return new SuccessDataResult<List<RentalDto>>(_rentalDal.GetRentalsDetails(),Messages.Listed) ;
         }
 
         public IResult Update(Rental rental)

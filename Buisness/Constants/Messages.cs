@@ -28,11 +28,16 @@ namespace Buisness.Constants
 
         public static string UserRegistered = "Kullanıcı Oluşturuldu";
 
-        public static string UserNotFound = "";
-        public static string PasswordError = "";
-        public static string SuccessfulLogin = "";
-        public static string UserAlreadyExists = "";
-        public static string AccessTokenCreated = "";
+        public static string UserNotFound = "kullanıcı bulunamadı";
+        public static string PasswordError = "şifre hatası";
+        public static string SuccessfulLogin = "giriş başarılı";
+        public static string UserAlreadyExists = "kullanıcı mevcut";
+        public static string AccessTokenCreated = "token başarıyla oluşturuldu";
+
+        public static string Added = "eklendi";
+        public static string Deleted = "silindi";
+        public static string Listed = "listelendi";
+        public static string CarsDetailsListed = "araba ayrıntıları listelendi";
     }
 }
  

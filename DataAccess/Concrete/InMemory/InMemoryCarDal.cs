@@ -49,6 +49,11 @@ namespace DataAccess.Concrete.InMemory
             throw new NotImplementedException();
         }
 
+        public List<Car> GetCarsByFilter(CarFilterDto filter)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Car car)
         {
             throw new NotImplementedException(); //üşendim

@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace Core.CrossCuttingConcerns.Caching.Microsoft
 {
+    // burada adapter pattern uyguluyoruz
     public class MemoryCacheManager : ICacheManager
     {
         IMemoryCache _memoryCache;

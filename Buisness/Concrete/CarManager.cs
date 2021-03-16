@@ -10,6 +10,7 @@ using Core.Untilities.Business;
 using Core.Untilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,16 +31,16 @@ namespace Buisness.Concrete
         [PerformanceAspect(2)]
         public IDataResult<List<Car>> GetAll()
         {
-            if (DateTime.Now.Hour == 22)
-            {
-                return new ErrorDataResult<List<Car>>("saat 22 değil sistem çalışmıyor");
-                
-            }
+            //if (DateTime.Now.Hour == 22)
+            //{
+            //    return new ErrorDataResult<List<Car>>("saat 22 değil sistem çalışmıyor");
+
+            //}
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarsListed);
         }
 
         [SecuredOperation("admin,car.add", Priority = 1)]
-        [ValidationAspect(typeof(CarValidator),Priority = 2)]
+        [ValidationAspect(typeof(CarValidator), Priority = 2)]
         [CacheRemoveAspect("ICarService.Get", Priority = 3)]
         [TransactionScopeAspect]
         public IResult Add(Car car)
@@ -72,9 +73,14 @@ namespace Buisness.Concrete
         [CacheAspect(Priority = 3)]
         public IDataResult<List<Car>> GetByBrandId(int id)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(b => b.BrandId == id), Messages.CarsListed);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id), Messages.CarsListed);
         }
 
+        [CacheAspect(Priority = 3)]
+        public IDataResult<List<Car>> GetByColorId(int id)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id), Messages.CarsListed);
+        }
 
         [CacheAspect(Priority = 3)]
         public IDataResult<Car> GetById(int id)
@@ -87,6 +93,12 @@ namespace Buisness.Concrete
         public IDataResult<List<Car>> GetByDailyPrice(int min, int max)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max), Messages.CarsListed);
+        }
+
+
+        public IDataResult<List<CarDetailDto>> GetByCarsDetailsList()
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.CarsDetailsListed);
         }
 
         private IResult CheckIfCarCountOfBrandCorrect(int brand)
@@ -110,5 +122,14 @@ namespace Buisness.Concrete
             return new SuccessResult();
         }
 
+        public IDataResult<List<CarDetailDto>> GetCarsDetails()
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.Listed);
+        }
+
+        public IDataResult<List<Car>> GetAllByFilter(CarFilterDto filter)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetCarsByFilter(filter));
+        }
     }
 }
